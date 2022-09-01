@@ -2,10 +2,10 @@ var typeofFood = document.querySelector("#cuisineStyle")
 var searchbtn = document.querySelector(".searchbtn btn")
 var alcohol = document.querySelector("#alcohol")
 var flavor = document.querySelector("#flavor")
+var mealImage = document.querySelector("#meal-image");
 
-//  searchbtn.addEventListener("click", function(event){
-       var requestURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i='+ alcohol.value;
-       var foodURL = "https://www.themealdb.com/api/json/v1/1/filter.php?i=" + typeofFood.value;
+// searchbtn.addEventListener("click", function(event){
+       
 //       console.log(requestURL)
 //       fetch(requestURL)
 //         .then(function(response) {
@@ -18,7 +18,7 @@ var flavor = document.querySelector("#flavor")
   
 
   $(document).ready(function () {
-    //display script
+    //display script 
     // input questions and options on search page
     $("select").attr("class", "browser-default");
     // mobile collapse nav bar on result page
@@ -28,8 +28,8 @@ var flavor = document.querySelector("#flavor")
   
     // page variables
     // drop-downs
-   var flavorDropdown = $("#flavor");
-   var drinkDropdown = $("#drink");
+   var flavorDropdown = $("#flavors");
+   var drinkDropdown = $("#alcohol");
     // result fields
    var drinkName = $("#name-text");
    var drinkImage = $("#drink-image");
@@ -38,26 +38,9 @@ var flavor = document.querySelector("#flavor")
   
     // API calls
     
-    // searchbtn.addEventListener("click", function(event)){
+    // searchbtn.addEventListener("click", function(event)) {
 
-    fetch(requestURL)
-            .then(function(response) {
-              return response.json();
-            })
-            .then(function(data) {
-              console.log(data);
     
-            })
-            
-    fetch(foodURL)
-            .then(function(response) {
-              return response.json();
-            })
-            .then(function(data) {
-              console.log(data);
-    
-            })
-
           // }
     // API call to get rum picture
     function rumPicture() {
@@ -98,17 +81,20 @@ var flavor = document.querySelector("#flavor")
     // End API calls
   
     // function to populate the picture based on drink selection
-    function setPicture() {
-      if (drinkDropdown.val() === "vodka") {
-        vodkaPicture();
-      } else if (drinkDropdown.val() === "tequila") {
-        tequilaPicture();
-      } else if (drinkDropdown.val() === "rum") {
-        rumPicture();
-      } else if (drinkDropdown.val() === "whiskey") {
-        // this link auto-selects a picture
-        drinkImage.attr("src", "htpp://www.thecocktaildb.com/api/json/v1/1/images/media/drink/vrwquq1478252802.jpg/preview (100x100 pixels)");
-      }
+    function setPicture(drinkPic) {
+      // if (drinkDropdown.val() === "vodka") {
+      //   vodkaPicture();
+      // } else if (drinkDropdown.val() === "tequila") {
+      //   tequilaPicture();
+      // } else if (drinkDropdown.val() === "rum") {
+      //   rumPicture();
+      // } else if (drinkDropdown.val() === "whiskey") {
+      //   // this link auto-selects a picture
+        drinkImage.attr("src", "https://www.thecocktaildb.com/images/ingredients/" + drinkPic + "-Small.png");
+      
+    }
+    function foodPic(foodImage){
+      mealImage.attr("src", "https://www.themealdb.com/images/ingredients/" + foodImage + "-Small.png");
     }
   
     // Function to generate drink details
@@ -125,13 +111,14 @@ var flavor = document.querySelector("#flavor")
         "bourbon",
         "cognac"
       ];
-     var alcoholIngedrients = [
+
+     var alcoholIngedrients = [""
         // drink ingredients pulled from request
       ];
       // Pick Random Names
-     var randomAlchoholTypes =
-        alchoholTypes[Math.floor(Math.random() * alchoholTypes.length)];
-     var randomAlcoholIngredients = alcoholIngredients[Math.floor(Math.random() * alcoholIngredients.length)];
+    //  var randomAlchoholTypes =
+    //     alchoholTypes[Math.floor(Math.random() * alchoholTypes.length)];
+    //  var randomAlcoholIngredients = alcoholIngredients[Math.floor(Math.random() * alcoholIngredients.length)];
   
       // Random flavor if needed
      var flavorOptions = ["strawberry", "peach", "apple", "tea", "daiquiri", "margarita", "mojito", "sour", "sweet", "kiwi", "lemon"];
@@ -144,37 +131,62 @@ var flavor = document.querySelector("#flavor")
     
       // Random Meal Generator
       // Meal Array
-     var mealSuggetions = ["pasta", "soup", "beef","chicken", "seafood", "steak","salad", "Vegetarian", "Vegan", "Jamaican", "Tacos", "Breakfast"
+     var  meal = ["pasta", "soup", "beef","chicken", "seafood", "steak","salad", "Vegetarian", "Vegan", "Jamaican", "Tacos", "Breakfast"
       //  possible meal options
       ];
       // Pick meal 
-     var randomMeal = Meal[Math.floor(Math.random() * Meal.length)];
+     var randomMeal = meal[Math.floor(Math.random() * meal.length)];
   
       // Text mappings & Picture
       // Set picture
       setPicture();
-      // Map name and flavor to #name-text
-      drinkName.text(`${randomalchoholTypes} ${randomalcoholIngredients}, ${flavorOption}`);
-      // Map drink to #drink-text - upper case firstvarter
-      drinkdrink.text(
-        drinkDropdown.val().substr(0, 1).toUpperCase() +
-          drinkDropdown.val().substr(1)
-      );
+      // Map name and flavor to #name-text ??
+     // drinkName.text(`${randomalchoholTypes} ${randomalcoholIngredients}, ${flavorOption}`);
+      // Map drink to #drink-text - upper case firstvarter??
+      // drinkdrink.text(
+      //   drinkDropdown.val().substr(0, 1).toUpperCase() +
+      //     drinkDropdown.val().substr(1)
+      // );
       
       // Map to Meal to #alcohol-text - upper case firstvarter
-      alcoholTypes.text(randomMeal.substr(0, 1).toUpperCase() + randomMeal.substr(1));
+      // alcoholTypes.text(randomMeal.substr(0, 1).toUpperCase() + randomMeal.substr(1));
     }
   
     // listen for search click to populate the picture?
-    $(".btn").on("click", function (event) {
+    $(".searchBtn").on("click", function (event) {
       event.preventDefault();
+      var drinkSelection = $("#alcohol").val();
+      var foodSelection = $("#cuisineStyle").val();
+
+      var requestURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i='+ drinkSelection ;
+       var foodURL = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + foodSelection;
+      console.log(foodURL)
+      fetch(requestURL)
+            .then(function(response) {
+              return response.json();
+            })
+            .then(function(data) {
+              console.log(data);
+    
+            })
+            
+    fetch(foodURL)
+            .then(function(response) {
+              return response.json();
+            })
+            .then(function(data) {
+              console.log(data);
+    
+            })
+
       // generate drink profile
       generatedrinkDetails();
       // hide search
       $("#searchcontainer").hide();
       // shows result
       $("#result").css("display", "block");
-      
+      setPicture(drinkSelection);
+      foodPic(foodSelection);
     });
 
     $("form.search-form").on("submit", function (event) {
