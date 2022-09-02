@@ -159,9 +159,7 @@ var flavor = document.querySelector("#flavor")
     event.preventDefault();
   });
 });
-white_check_mark
-eyes
-raised_hands
+
 
 
 
