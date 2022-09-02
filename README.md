@@ -1,5 +1,5 @@
 # Date-Night-INN
-[Launch Code Quiz](https://theodoreshishkovskiy.github.io/Date-Night-INN/)
+[Launch Code Quiz](https://theodoreshishkovskiy.github.io/Date-Night-Inn/)
 
 ## Table of Contents
 1. [Description](#Description)
